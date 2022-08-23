@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const { ValidationError } = require('sequelize');
 
-const router = require('./routes/clientesrouters');
-const { cliente } = require('./db');
+
+const  clientes  = require('./routes/clientes');
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 // Importando as rotas
-app.use('/clientes', cliente);
+app.use('/clientes', clientes);
 
 
 // Tratamento de erro

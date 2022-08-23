@@ -1,8 +1,8 @@
-const { cliente} = require("../db");
+const { Cliente} = require("../models");
 
 async function consultarclientes(req, res, next) {
     try {
-        res.send(await cliente.findAll());
+        res.send(await Cliente.findAll());
     }
     catch (err) {
         next(err);
@@ -10,7 +10,7 @@ async function consultarclientes(req, res, next) {
 }
 async function consultarcliente(req, res, next) {
     try {
-        const cliente = await cliente.findOne({
+        const cliente = await Cliente.findOne({
             where: {
                 id: req.params.id
             }
@@ -24,7 +24,7 @@ async function consultarcliente(req, res, next) {
 }
 async function cadastrarcliente(req, res, next) { 
     try {
-        const cliente = await cliente.create(req.body);
+        const cliente = await Cliente.create(req.body);
         res.send(cliente);
     } catch (err) {
         next(err);
@@ -32,7 +32,7 @@ async function cadastrarcliente(req, res, next) {
 }
 async function atualizarcadastrocliente(req, res, next) { 
     try {
-        const cliente = await cliente.findOne({
+        const cliente = await Cliente.findOne({
             where: {
                 id: req.params.id
             }
@@ -40,9 +40,9 @@ async function atualizarcadastrocliente(req, res, next) {
         
         if (!cliente) throw new Error("cliente não encontrado");
 
-        cliente.set(req.body);
+        Cliente.set(req.body);
 
-        await cliente.save();
+        await Cliente.save();
 
         res.send(cliente);
 
@@ -52,7 +52,7 @@ async function atualizarcadastrocliente(req, res, next) {
 }
 async function deletecliente(req, res, next) { 
     try {
-        const cliente = await cliente.findOne({
+        const cliente = await Cliente.findOne({
             where: {
                 id: req.params.id
             }
@@ -60,7 +60,7 @@ async function deletecliente(req, res, next) {
 
         if (!cliente) throw new Error("cliente não encontrado");
 
-        await cliente.destroy();
+        await Cliente.destroy();
 
         res.send({ success: true });
 
